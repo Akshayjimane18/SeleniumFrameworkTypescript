@@ -21,7 +21,7 @@
     "@cucumber/cucumber": "^9.1.0",
     "@types/selenium-webdriver": "^4.1.13",
     "chai": "^4.3.7",
-    "chromedriver": "^112.0.0",
+    "chromedriver": "^113.0.0",
     "selenium-webdriver": "^4.8.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
