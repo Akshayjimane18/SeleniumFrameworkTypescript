@@ -1,34 +1,32 @@
-import {Then} from "@cucumber/cucumber";
-import {expect} from 'chai';
-import {By, until} from 'selenium-webdriver';
+import { Then } from "@cucumber/cucumber";
+import { expect } from 'chai';
+import { By, until } from 'selenium-webdriver';
 import { ScenarioWorld } from "../setup/world";
+import { waitFor } from "../../support/wait-for-behaviour";
+import {
+    ElementKey,
+    ExpectedElementText
+} from "../../env/global";
+import { getElementLocator } from "../../support/web-element-helper";
+import { elemetnDisplayed, getElementText } from "../../support/html-behaviour";
 
-Then('the {string} should contain the text {string}',
-    async function (this:ScenarioWorld,elementKey:string, expectedElementText:string) {
+Then('the {string} should be displayed', async function (this: ScenarioWorld, elementKey: ElementKey) {
 
-        const {
-            screen: {driver}
-        } = this;
-
-        console.log(`The ${elementKey} should contain the text ${expectedElementText}`);
-
-        const element = await driver.findElement(By.css("[data-id='contacts']"));
-
-        const elementText = await element.getAttribute('innerText');
-
-        expect(elementText).to.contain(expectedElementText);
-});
-
-Then('the {string} should be displayed', async function(this:ScenarioWorld,elementKey:string){
-
-    const{
-   screen: {driver}
+    const {
+        screen: { driver },
+        globalVariables,
+        globalConfig
     } = this;
 
     console.log(`the {$elementKey} should be displayed`);
 
-    const element = await driver.findElement(By.css("[data-id='header-logo']"));
+    const elementIdentifier = await getElementLocator(driver, elementKey, globalVariables, globalConfig);
 
-    expect(await element.isDisplayed()).to.be.true;
+    const element = await driver.findElement(By.css(elementIdentifier));
+
+    await waitFor(async () => {
+        const isElementVisible = await elemetnDisplayed(driver, elementIdentifier);
+        return isElementVisible
+    })
 
 });

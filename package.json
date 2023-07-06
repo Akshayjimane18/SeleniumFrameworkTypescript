@@ -27,7 +27,6 @@
     "@cucumber/cucumber": "^9.1.0",
     "@types/dotenv": "^8.2.0",
     "@types/selenium-webdriver": "^4.1.14",
-    "chai": "^4.3.7",
     "chromedriver": "^113.0.0",
     "cucumber-html-reporter": "^7.1.0",
     "dotenv": "^16.0.3",
