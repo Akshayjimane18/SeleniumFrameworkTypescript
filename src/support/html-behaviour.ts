@@ -1,5 +1,5 @@
-import { By, WebDriver, WebElement } from "selenium-webdriver";
-import { ElementLocator } from "../env/global";
+import { By, IWebElementId, WebDriver, WebElement } from "selenium-webdriver";
+import { ElementLocator, InputValue } from "../env/global";
 import { Driver } from "selenium-webdriver/chrome";
 
 export const getElement = async (
@@ -8,6 +8,14 @@ export const getElement = async (
 ): Promise<WebElement> => {
 
     const element = await driver.findElement(By.css(elementIdentifier));
+    return element;
+}
+
+export const getElementWithOption = async (driver: WebDriver,
+    elementIdentifier: ElementLocator,
+    option: string): Promise<WebElement> => {
+
+    const element = await driver.findElement(By.css(`${elementIdentifier} > option[value=${option}]`));
     return element;
 }
 
@@ -34,4 +42,32 @@ export const getElementText = async (
     const element = await getElement(driver, elementIdentifier);
     const elementText = await element.getAttribute("innerText");
     return elementText;
+}
+
+export const clickElement = async (
+    driver: WebDriver,
+    elementIdentifier: ElementLocator): Promise<void> => {
+
+    const element = await getElement(driver, elementIdentifier);
+    await element.click();
+}
+
+export const inputElementValue = async (
+    driver: WebDriver,
+    elementIdentifier: ElementLocator,
+    inputValue: InputValue): Promise<void> => {
+
+    const element = await getElement(driver, elementIdentifier);
+    await element.clear();
+    await element.sendKeys(inputValue);
+
+}
+
+export const selectElementValue = async (
+    driver: WebDriver,
+    elementIdentifier: ElementLocator,
+    option: string
+): Promise<void> => {
+    const element = await getElementWithOption(driver, elementIdentifier, option);
+    await element.click();
 }

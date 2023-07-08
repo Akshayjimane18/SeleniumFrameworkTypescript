@@ -8,3 +8,6 @@
 # yarn add dotenv -D
 
 # For Cucumber Report this is the command yarn add cucumber-html-reporter -D
+
+# For Lint below is the command
+# yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -D

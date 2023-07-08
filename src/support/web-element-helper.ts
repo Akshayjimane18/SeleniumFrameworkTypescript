@@ -1,4 +1,5 @@
 import { WebDriver, error } from "selenium-webdriver";
+import { getCurrentPageId } from "./navigation-behaviour"
 import {
     ElementKey,
     ElementLocator,
@@ -9,12 +10,11 @@ import {
 export const getElementLocator = async (
     driver: WebDriver,
     elementKey: ElementKey,
-    globalVariables: GlobalVariables,
     globalConfig: GlobalConfig): Promise<ElementLocator> => {
 
     const { pageElementsMapping } = globalConfig;
 
-    const currentPage = globalVariables.currentScreen;
+    const currentPage = await getCurrentPageId(driver, globalConfig)
 
     const elementIdentifier = pageElementsMapping[currentPage]?.[elementKey] || pageElementsMapping.common?.[elementKey]
 

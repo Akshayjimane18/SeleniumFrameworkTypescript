@@ -1,5 +1,4 @@
 import { Then } from "@cucumber/cucumber";
-import { expect } from 'chai';
 import { By, until } from 'selenium-webdriver';
 import { ScenarioWorld } from "../setup/world";
 import { waitFor } from "../../support/wait-for-behaviour";
@@ -14,13 +13,12 @@ Then('the {string} should be displayed', async function (this: ScenarioWorld, el
 
     const {
         screen: { driver },
-        globalVariables,
         globalConfig
     } = this;
 
     console.log(`the {$elementKey} should be displayed`);
 
-    const elementIdentifier = await getElementLocator(driver, elementKey, globalVariables, globalConfig);
+    const elementIdentifier = await getElementLocator(driver, elementKey, globalConfig);
 
     const element = await driver.findElement(By.css(elementIdentifier));
 
